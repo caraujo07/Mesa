@@ -1,7 +1,9 @@
 /* eslint-disable promise/param-names */
+
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../actions/auth'
 import { USER_REQUEST } from '../actions/user'
 import apiCall from '../../utils/api'
+import axios from 'axios'
 
 const state = { token: localStorage.getItem('user-token') || '', status: '', hasLoadedOnce: false }
 
@@ -19,7 +21,7 @@ const actions = {
           localStorage.setItem('user-token', resp.token)
           // Here set the header of your ajax library to the token value.
           // example with axios
-          // axios.defaults.headers.common['Authorization'] = resp.token
+          axios.defaults.headers.common.Authorization = resp.token
           commit(AUTH_SUCCESS, resp)
           dispatch(USER_REQUEST)
           resolve(resp)

@@ -42,7 +42,7 @@ export default {
       //   this.$router.push('/')
       // })
       const { email, password } = this.form
-      console.log(this.$root._route)
+
       this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
         this.$root._router.push('/home')
       })
