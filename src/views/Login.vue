@@ -43,6 +43,7 @@ export default {
       // })
       const { email, password } = this.form
       this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
+        console.log(email, password)
         this.$router.push('/')
       })
     }

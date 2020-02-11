@@ -1,5 +1,5 @@
 import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from '../actions/user'
-import apiCall from 'utils/api'
+import apiCall from '../../utils/api'
 import Vue from 'vue'
 import { AUTH_LOGOUT } from '../actions/auth'
 
@@ -7,13 +7,13 @@ const state = { status: '', profile: {} }
 
 const getters = {
   getProfile: state => state.profile,
-  isProfileLoaded: state => !!state.profile.name,
+  isProfileLoaded: state => !!state.profile.name
 }
 
 const actions = {
-  [USER_REQUEST]: ({commit, dispatch}) => {
+  [USER_REQUEST]: ({ commit, dispatch }) => {
     commit(USER_REQUEST)
-    apiCall({url: 'user/me'})
+    apiCall({ url: 'user/me' })
       .then(resp => {
         commit(USER_SUCCESS, resp)
       })
@@ -22,7 +22,7 @@ const actions = {
         // if resp is unauthorized, logout, to
         dispatch(AUTH_LOGOUT)
       })
-  },
+  }
 }
 
 const mutations = {
@@ -45,5 +45,5 @@ export default {
   state,
   getters,
   actions,
-  mutations,
+  mutations
 }

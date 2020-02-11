@@ -1,37 +1,37 @@
 /* eslint-disable promise/param-names */
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../actions/auth'
 import { USER_REQUEST } from '../actions/user'
-// import apiCall from 'utils/api'
+import apiCall from '../../utils/api'
 
 const state = { token: localStorage.getItem('user-token') || '', status: '', hasLoadedOnce: false }
 
 const getters = {
   isAuthenticated: state => !!state.token,
-  authStatus: state => state.status,
+  authStatus: state => state.status
 }
 
 const actions = {
-  [AUTH_REQUEST]: ({commit, dispatch}, user) => {
+  [AUTH_REQUEST]: ({ commit, dispatch }, user) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      apiCall({url: 'auth', data: user, method: 'POST'})
-      .then(resp => {
-        localStorage.setItem('user-token', resp.token)
-        // Here set the header of your ajax library to the token value.
-        // example with axios
-        // axios.defaults.headers.common['Authorization'] = resp.token
-        commit(AUTH_SUCCESS, resp)
-        dispatch(USER_REQUEST)
-        resolve(resp)
-      })
-      .catch(err => {
-        commit(AUTH_ERROR, err)
-        localStorage.removeItem('user-token')
-        reject(err)
-      })
+      apiCall({ url: 'auth', data: user, method: 'POST' })
+        .then(resp => {
+          localStorage.setItem('user-token', resp.token)
+          // Here set the header of your ajax library to the token value.
+          // example with axios
+          // axios.defaults.headers.common['Authorization'] = resp.token
+          commit(AUTH_SUCCESS, resp)
+          dispatch(USER_REQUEST)
+          resolve(resp)
+        })
+        .catch(err => {
+          commit(AUTH_ERROR, err)
+          localStorage.removeItem('user-token')
+          reject(err)
+        })
     })
   },
-  [AUTH_LOGOUT]: ({commit, dispatch}) => {
+  [AUTH_LOGOUT]: ({ commit, dispatch }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_LOGOUT)
       localStorage.removeItem('user-token')
@@ -62,5 +62,5 @@ export default {
   state,
   getters,
   actions,
-  mutations,
+  mutations
 }
