@@ -1,23 +1,23 @@
 <template>
   <div class='login'>
-    <div class="LoginWrapper">
-      <div class="brand">
-        <img src="../assets/img/mesa.png" alt="Mesa Mobile Thinking">
+    <div class='LoginWrapper'>
+      <div class='brand'>
+        <img src='../assets/img/mesa.png' alt='Mesa Mobile Thinking'>
       </div>
       <h1>Sign in</h1>
       <form @submit.prevent='login'>
         <label for='email'>E-mail</label>
-        <input type='email' v-model='form.email' name='email' />
+        <input type='email' v-model='form.email' name='email' placeholder='exemple@email.com' />
 
         <label for='password'>Password</label>
-        <input type='password' v-model='form.password' name='password' />
-        <div class="btn-login">
-          <button type="submit">Login</button>
+        <input type='password' v-model='form.password' name='password' placeholder='*******' />
+        <div class='btn-login'>
+          <button type='submit'>Login</button>
         </div>
       </form>
-      <div class="createacc">
+      <div class='createacc'>
         <a href>
-          <router-link to="/signup">Create account</router-link>
+          <router-link to='/signup'>Create account</router-link>
         </a>
       </div>
     </div>
@@ -42,9 +42,9 @@ export default {
       //   this.$router.push('/')
       // })
       const { email, password } = this.form
+      console.log(this.$root._route)
       this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
-        console.log(email, password)
-        this.$router.push('/')
+        this.$root._router.push('/home')
       })
     }
   }
