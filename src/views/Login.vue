@@ -11,6 +11,7 @@
 
         <label for='password'>Password</label>
         <input type='password' v-model='form.password' name='password' placeholder='*******' />
+        <span class='loginError' v-if="validation">Invalid e-mail or password</span>
         <div class='btn-login'>
           <button type='submit'>Login</button>
         </div>
@@ -33,7 +34,8 @@ export default {
     form: {
       email: '',
       password: ''
-    }
+    },
+    validation: false
   }),
   methods: {
     login: function () {
@@ -45,6 +47,8 @@ export default {
 
       this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
         this.$root._router.push('/home')
+      }).catch(() => {
+        this.validation = true
       })
     }
   }
@@ -86,6 +90,10 @@ export default {
           padding: 20px;
         }
       }
+      .loginError {
+        color: red;
+        font-size: .8rem;
+      }
       .btn-login {
         align-self: flex-end;
         button {
@@ -99,6 +107,9 @@ export default {
           background: rgba(0, 0, 0, 0) linear-gradient(40deg, rgb(254, 27, 96) 0%, rgb(232, 29, 29) 100%) repeat scroll 0% 0%;
           &:hover {
            background: rgba(0, 0, 0, 0) linear-gradient(40deg, rgb(254, 30, 80) 0%, rgb(232, 15, 15) 100%) repeat scroll 0% 0%;
+          }
+          &:focus {
+            outline: none;
           }
         }
       }
@@ -131,6 +142,10 @@ export default {
         padding: 5px 10px;
         margin: 5px 0;
         width: 100%;
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
       }
     }
   }
