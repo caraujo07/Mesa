@@ -4,17 +4,17 @@
       <div class="brand">
         <img src="../assets/img/mesa.png" alt="Mesa Mobile Thinking">
       </div>
-      <h1>Login</h1>
-      <form>
+      <h1>Sign in</h1>
+      <form @submit.prevent='login'>
         <label for='email'>E-mail</label>
         <input type='email' v-model='form.email' name='email' />
 
         <label for='password'>Password</label>
         <input type='password' v-model='form.password' name='password' />
+        <div class="btn-login">
+          <button type="submit">Login</button>
+        </div>
       </form>
-      <div class="btn-login">
-        <button @click="login">Login</button>
-      </div>
       <div class="createacc">
         <a href>
           <router-link to="/signup">Create account</router-link>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+// import { loginRoutine } from '../store/api'
+const AUTH_REQUEST = 'AUTH_REQUEST'
 export default {
   name: 'login',
   data: () => ({
@@ -35,8 +37,14 @@ export default {
   }),
   methods: {
     login: function () {
-      console.log(this.form)
-      this.$router.replace('home')
+      // const { email, password } = this.form
+      // loginRoutine({ email, password }).then(() => {
+      //   this.$router.push('/')
+      // })
+      const { email, password } = this.form
+      this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
+        this.$router.push('/')
+      })
     }
   }
 }
@@ -78,7 +86,7 @@ export default {
         }
       }
       .btn-login {
-        text-align: right;
+        align-self: flex-end;
         button {
           padding: 10px 20px;
           margin-top: 10px;

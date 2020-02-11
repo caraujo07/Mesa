@@ -4,7 +4,7 @@
       <div class="brand">
         <img src="../assets/img/mesa.png" alt="Mesa Mobile Thinking">
       </div>
-      <h1>Register</h1>
+      <h1>Sign up</h1>
       <form>
         <label for='email'>E-mail</label>
         <input type='email' name='email' />
@@ -29,7 +29,8 @@ export default {
   data () {
     return {}
   },
-  methods: {}
+  methods: {
+  }
 }
 </script>
 
