@@ -7,10 +7,10 @@
       <h1>Sign in</h1>
       <form @submit.prevent='login'>
         <label for='email'>E-mail</label>
-        <input type='email' v-model='form.email' name='email' placeholder='exemple@email.com' />
+        <input type='email' v-model='form.email' name='email' placeholder='exemple@email.com' required/>
 
         <label for='password'>Password</label>
-        <input type='password' v-model='form.password' name='password' placeholder='*******' />
+        <input type='password' v-model='form.password' name='password' placeholder='••••••••' required/>
         <span class='loginError' v-if="validation">Invalid e-mail or password</span>
         <div class='btn-login'>
           <button type='submit'>Login</button>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-// import { loginRoutine } from '../store/api'
 const AUTH_REQUEST = 'AUTH_REQUEST'
 export default {
   name: 'login',
@@ -39,12 +38,7 @@ export default {
   }),
   methods: {
     login: function () {
-      // const { email, password } = this.form
-      // loginRoutine({ email, password }).then(() => {
-      //   this.$router.push('/')
-      // })
       const { email, password } = this.form
-
       this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
         this.$root._router.push('/home')
       }).catch(() => {
@@ -137,11 +131,12 @@ export default {
         font-size: 14px;
       }
       input {
-        border: 1px solid rgb(100, 100, 100);
+        border: 1px solid transparent;
         border-radius: 4px;
-        padding: 5px 10px;
+        padding: 10px 30px 10px 10px;
         margin: 5px 0;
         width: 100%;
+        background: #EEE;
         &:focus {
           box-shadow: none;
           outline: none;
