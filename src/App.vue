@@ -12,4 +12,8 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+body {
+  background: #EEE;
+}
 </style>
