@@ -6,36 +6,29 @@
       :zoom="15"
       map-type-id="roadmap"
     >
-      <GmapMarker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-        @click="center=m.position"
-      />
     </GmapMap>
   </div>
 </template>
 
 <script>
+import { gmapApi } from 'vue2-google-maps'
 
 export default {
   name: 'GoogleMap',
+  computed: {
+    google: gmapApi
+  },
   data () {
     return {
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
-      center: { lat: -8.34, lng: -73.587 },
-      markers: [],
       places: [],
       currentPlace: null,
       location: {
-        lat: null,
-        lng: null
+        lat: 0.0,
+        lng: 0.0
       },
       gettingLocation: false,
-      errorStr: null
+      errorStr: null,
+      res: {}
     }
   },
   created () {
@@ -48,9 +41,8 @@ export default {
     // get position
     navigator.geolocation.getCurrentPosition(pos => {
       this.gettingLocation = false
-      this.location.lat = pos.coords.latitude
-      this.location.lng = pos.coords.longitude
-      console.log(this.location.lat, this.location.lng)
+      this.location.lat = parseFloat(pos.coords.latitude)
+      this.location.lng = parseFloat(pos.coords.longitude)
     }, err => {
       this.gettingLocation = false
       this.errorStr = err.message
@@ -60,40 +52,53 @@ export default {
     try {
       this.$refs.mapRef.$mapPromise.then((map) => {
         map.panTo({ lat: this.location.lat, lng: this.location.lng })
+        this.$gmapApiPromiseLazy().then(res => {
+          const recife = new res.maps.LatLng(-8.0485, -34.873343999999996)
+
+          var service = new res.maps.places.PlacesService(map)
+
+          function createMarker (place) {
+            var placeLoc = place.geometry.location
+            var infowindow = new res.maps.InfoWindow()
+            var marker = new res.maps.Marker({
+              map: map,
+              position: placeLoc
+            })
+
+            res.maps.event.addListener(marker, 'click', function () {
+              infowindow.setContent(place.name)
+              infowindow.open(map, this)
+            })
+          }
+          const callback = (results, status) => {
+            if (status === res.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                createMarker(results[i])
+                const { name, vicinity } = results[i]
+                this.places.push({ name, vicinity })
+                this.emitToParent()
+              }
+            }
+          }
+          service.nearbySearch({
+            location: recife,
+            radius: '500'
+          }, callback)
+        })
       })
-      this.geolocate()
     } catch (e) {
       console.log(e)
     }
   },
 
   methods: {
-    setPlace (place) {
-      this.currentPlace = place
-      console.log(place)
-    },
-    addMarker () {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
-        }
-        this.markers.push({ position: marker })
-        this.places.push(this.currentPlace)
-        this.center = marker
-        this.currentPlace = null
-      }
-    },
-    geolocate: function () {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-      })
+    emitToParent (event) {
+      this.$emit('mapToParent', this.places)
     }
   }
+
 }
+
 </script>
 <style lang="scss" scoped>
   #map {
