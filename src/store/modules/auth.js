@@ -18,7 +18,6 @@ const actions = {
       commit(AUTH_REQUEST)
       apiCall({ url: 'https://reqres.in/api', data: user, method: 'POST' })
         .then(resp => {
-          console.log(resp)
           localStorage.setItem('user-token', resp.token)
           axios.defaults.headers.common.Authorization = resp.token
           commit(AUTH_SUCCESS, resp)

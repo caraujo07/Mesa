@@ -74,8 +74,8 @@ export default {
             if (status === res.maps.places.PlacesServiceStatus.OK) {
               for (var i = 0; i < results.length; i++) {
                 createMarker(results[i])
-                const { name, vicinity } = results[i]
-                this.places.push({ name, vicinity })
+                const { id, name, vicinity } = results[i]
+                this.places.push({ id, name, vicinity })
                 this.emitToParent()
               }
             }
