@@ -101,8 +101,7 @@ export default {
         })
     },
     saveFav: function (event, name, id) {
-      const el = event.currentTarget
-
+      const el = event.currentTarget.parentElement
       if (!localStorage.getItem(`place-${name}`)) {
         localStorage.setItem(`place-${name}`, `place-${id}`)
         el.classList.add('saved')
