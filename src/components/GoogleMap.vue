@@ -3,7 +3,7 @@
    <GmapMap id="map"
       ref="mapRef"
       :center="{lat: location.lat, lng: location.lng}"
-      :zoom="15"
+      :zoom="17"
       map-type-id="roadmap"
     >
     </GmapMap>
