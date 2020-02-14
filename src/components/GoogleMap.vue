@@ -19,6 +19,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'GoogleMap',
   data () {
@@ -55,11 +56,15 @@ export default {
       this.errorStr = err.message
     })
   },
-  mounted () {
-    this.$refs.mapRef.$mapPromise.then((map) => {
-      map.panTo({ lat: this.location.lat, lng: this.location.lng })
-    })
-    this.geolocate()
+  async mounted () {
+    try {
+      this.$refs.mapRef.$mapPromise.then((map) => {
+        map.panTo({ lat: this.location.lat, lng: this.location.lng })
+      })
+      this.geolocate()
+    } catch (e) {
+      console.log(e)
+    }
   },
 
   methods: {

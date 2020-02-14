@@ -13,4 +13,8 @@ export const api = axios.create({
   baseURL: 'https://reqres.in/api'
 })
 
+export const nearby = axios.create({
+  baseURL: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+})
+
 export default apiCall
