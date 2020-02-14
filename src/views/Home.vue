@@ -87,6 +87,7 @@ export default {
 }
 </script>
 <style lang='scss'>
+@import url('https://fonts.googleapis.com/css?family=Baloo&display=swap');
   #Home {
     display: flex;
     .map {
@@ -144,11 +145,15 @@ export default {
       }
     }
     .nickname {
-      font-size: 22px;
+      font-size: 32px;
       font-weight: bold;
       text-align: center;
       color: #555;
       margin-bottom: 3px;
+      p {
+        font-family: 'Baloo', cursive;
+        line-height: 0.8;
+      }
     }
     .mail {
       text-align: center;
@@ -184,9 +189,10 @@ export default {
       width: 80%;
       margin: 30px auto 0 auto;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 12px;
+      font-family: 'Baloo', cursive;
     }
   .places {
-    height: 60vh;
+    height: 55vh;
     width: 80%;
     background: #fff;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 12px;
@@ -194,6 +200,16 @@ export default {
     overflow-y: scroll;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #e81d1d;
+      border-radius: 10px;
+    }
     .saved {
       path {
         fill: #ffc107;
