@@ -68,6 +68,7 @@ export default {
             res.maps.event.addListener(marker, 'click', function () {
               infowindow.setContent(place.name)
               infowindow.open(map, this)
+              console.log(place)
             })
           }
           const callback = (results, status) => {

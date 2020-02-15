@@ -1,15 +1,30 @@
 <template>
   <div id="Home">
+    <modal name="edit-profile" id="edit-profile" :height="600" style="">
+      <h1 class="nickname">Profile</h1>
+      <div class="avatar">
+        <img :src="user.avatar" :alt="user.first_name + ' ' + user.last_name" :title="user.first_name + ' ' + user.last_name">
+      </div>
+      <div class="nickname">
+        <label for="name">Name: </label>
+        <input id="name" :placeholder="user.first_name + ' ' + user.last_name"/>
+      </div>
+      <div class="mail">
+        <label for="email">E-mail: </label>
+        <input id="email" :placeholder="user.email"/>
+      </div>
+      <button class="btn-logout btn-concluir-edt" @click="update(); hide();">Update</button>
+    </modal>
     <div class="locationsList">
       <div class="profile-info">
         <div class="avatar">
           <img :src="user.avatar" :alt="user.first_name + ' ' + user.last_name" :title="user.first_name + ' ' + user.last_name">
-          <div class="edit" title="Edit profile"><img :src="edit" /></div>
+          <div class="edit" title="Edit profile" @click="show"><img :src="edit" /></div>
         </div>
-        <div class="nickname">
+        <div id="username" class="nickname">
           <p>{{ user.first_name + ' ' + user.last_name }}</p>
         </div>
-        <div class="mail">
+        <div id="useremail" class="mail">
           <p>{{ user.email }}</p>
         </div>
         <div class="logout">
@@ -120,12 +135,76 @@ export default {
           this.saved.push([item[0], item[1]])
         }
       })
+      console.log(this)
+    },
+    show: function () {
+      this.$modal.show('edit-profile')
+    },
+    hide: function () {
+      this.$modal.hide('edit-profile')
+    },
+    update: function () {
+      const name = document.getElementById('name').value
+      const email = document.getElementById('email').value
+      const username = document.querySelector('#username p')
+      const useremail = document.querySelector('#useremail p')
+
+      if (name !== '' || email !== '') {
+        username.innerHTML = name
+        useremail.innerHTML = email
+      }
+
+      console.log(name, username)
     }
   }
 }
 </script>
 <style lang='scss'>
 @import url('https://fonts.googleapis.com/css?family=Baloo&display=swap');
+  .v--modal-box.v--modal {
+    border-radius: 20px;
+    padding: 20px;
+  }
+    #edit-profile {
+      h1.nickname {
+        margin: 10px 0;
+        font-size: 2.5rem;
+      }
+      input {
+        padding: 10px 20px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        box-shadow: 0px 6px 12px rgba(0,0,0,.1);
+        font-size: 1.2rem;
+        &:focus {
+          outline: none;
+          border: 1px solid red;
+        }
+      }
+      label {
+        font-size: 1.1rem;
+        font-weight: 400;
+        display: block;
+        text-align: left;
+        margin-right: 10px;
+        margin-left: -20px;
+      }
+      .nickname, .mail {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .btn-logout.btn-concluir-edt {
+        background: rgba(0, 0, 0, 0) linear-gradient(40deg, rgb(254, 27, 96) 0%, rgb(232, 29, 29) 100%) repeat scroll 0% 0%;
+        color: #FFF;
+        font-weight: bold;
+        padding: 10px 20px;
+        &:hover {
+          color: #FFF;
+        }
+      }
+    }
   #Home {
     display: flex;
     .map {
@@ -133,10 +212,12 @@ export default {
       width: 100%;
     }
   }
-  .locationsList {
-    background: #FFF;
-    width: 30%;
-    height: 100vh;
+  .locationsList, #edit-profile {
+    &:not(#edit-profile) {
+      background: #FFF;
+      width: 30%;
+      height: 100vh;
+    }
     .avatar {
       display: flex;
       align-items: center;
