@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     async onMapChange (value) {
-      this.fromMap = await value
+      this.fromMap = value
 
       const result = await Object.keys(localStorage).map(function (key) {
         return [key, localStorage[key]]
