@@ -21,8 +21,6 @@ const actions = {
           localStorage.setItem('user-token', resp.token)
           axios.defaults.headers.common.Authorization = resp.token
           commit(AUTH_SUCCESS, resp)
-          localStorage.removeItem('user-id')
-
           resolve(resp)
         })
         .catch(err => {

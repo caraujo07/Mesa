@@ -41,7 +41,9 @@ export default {
   methods: {
     login: function () {
       const { email, password } = this.form
-      this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
+      this.$store.dispatch(AUTH_REQUEST, { email, password }).then(r => {
+        const { token } = r
+        localStorage.setItem('user-token', token)
         this.$root._router.push('/home')
       }).catch(() => {
         this.validation = true

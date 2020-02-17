@@ -79,7 +79,12 @@ export default {
       strteste: 'saved'
     }
   },
-  created () {
+  async created () {
+    if (this.$root.$route.path === '/home' && !localStorage.getItem('user-token')) {
+      await this.$root._router.push('/')
+    }
+  },
+  beforeMount () {
   },
   async mounted () {
     try {
@@ -277,6 +282,9 @@ export default {
       &:hover {
         box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 12px;
         color: red;
+      }
+      &:focus {
+        outline: none
       }
     }
   }
