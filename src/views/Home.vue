@@ -80,7 +80,7 @@ export default {
     }
   },
   async created () {
-    if (this.$root.$route.path === '/Home' && !localStorage.getItem('user-token')) {
+    if ((this.$root.$route.path === '/Home' || this.$root.$route.path === '/home') && !localStorage.getItem('user-token')) {
       await this.$root._router.push('/')
     }
   },
