@@ -7,7 +7,7 @@
 
 Search nearby places and make them your favourite!!
 
-- **Simple to Start** This application is built to be easy to use. You just have to pick up your favourite places near to you (20 marked).
+- **Simple to Start** This application is built to be easy to use. You just have to login with the e-mail "eve.holt@reqres.in" and whatever password you want (there is no restrictions -REQRES auth-) pick up your favourite places near to you (20 marked).
 
 ## Installation and Usage
 
