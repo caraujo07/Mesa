@@ -38,9 +38,9 @@ export default {
       password: ''
     },
     validation: false,
+    validationMessage: false,
     countDown: 5,
-    message: '',
-    validationMessage: false
+    message: ''
   }),
   methods: {
     countDownTimer () {

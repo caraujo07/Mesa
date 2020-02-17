@@ -55,12 +55,12 @@ export default {
         this.$gmapApiPromiseLazy().then(async res => {
           const recife = await new res.maps.LatLng(this.location.lat, this.location.lng)
 
-          var service = new res.maps.places.PlacesService(map)
+          const service = new res.maps.places.PlacesService(map)
 
           function createMarker (place) {
-            var placeLoc = place.geometry.location
-            var infowindow = new res.maps.InfoWindow()
-            var marker = new res.maps.Marker({
+            const placeLoc = place.geometry.location
+            const infowindow = new res.maps.InfoWindow()
+            const marker = new res.maps.Marker({
               map: map,
               position: placeLoc
             })
@@ -72,7 +72,7 @@ export default {
           }
           const callback = (results, status) => {
             if (status === res.maps.places.PlacesServiceStatus.OK) {
-              for (var i = 0; i < results.length; i++) {
+              for (let i = 0; i < results.length; i++) {
                 createMarker(results[i])
                 const { id, name, vicinity } = results[i]
                 this.places.push({ id, name, vicinity })

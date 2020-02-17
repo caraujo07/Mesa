@@ -26,7 +26,9 @@
 </template>
 
 <script>
-const AUTH_REQUEST = 'AUTH_REQUEST'
+
+import { AUTH_REQUEST } from '../store/actions/auth'
+
 export default {
   name: 'login',
   data: () => ({
@@ -52,8 +54,8 @@ export default {
 <style lang='scss' scoped>
   .login {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     height: 100vh;
     .LoginWrapper {
