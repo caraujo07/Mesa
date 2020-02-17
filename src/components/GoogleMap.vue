@@ -53,7 +53,7 @@ export default {
       this.$refs.mapRef.$mapPromise.then((map) => {
         map.panTo({ lat: this.location.lat, lng: this.location.lng })
         this.$gmapApiPromiseLazy().then(async res => {
-          const recife = await new res.maps.LatLng(this.location.lat, this.location.lng)
+          const placeLocation = await new res.maps.LatLng(this.location.lat, this.location.lng)
 
           const service = new res.maps.places.PlacesService(map)
 
@@ -81,7 +81,7 @@ export default {
             }
           }
           service.nearbySearch({
-            location: recife,
+            location: placeLocation,
             radius: '500'
           }, callback)
         })
