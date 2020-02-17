@@ -44,7 +44,7 @@ export default {
       this.$store.dispatch(AUTH_REQUEST, { email, password }).then(r => {
         const { token } = r
         localStorage.setItem('user-token', token)
-        this.$root._router.push('/home')
+        this.$root._router.push('/Home')
       }).catch(() => {
         this.validation = true
       })
