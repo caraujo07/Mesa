@@ -29,7 +29,6 @@
         </div>
         <div class="logout">
           <button class="btn-logout" @click="logout">logout</button>
-          <button class="btn-logout" @click.prevent="getFav()">Favoritos</button>
         </div>
       </div>
 
@@ -124,17 +123,6 @@ export default {
         localStorage.removeItem(`place-${name}`)
         el.classList.remove('saved')
       }
-    },
-    getFav () {
-      const result = Object.keys(localStorage).map(function (key) {
-        return [key, localStorage[key]]
-      })
-      this.saved = []
-      result.filter(item => {
-        if (item[0].includes('place-')) {
-          this.saved.push([item[0], item[1]])
-        }
-      })
     },
     show: function () {
       this.$modal.show('edit-profile')
