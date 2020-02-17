@@ -62,7 +62,6 @@ export default {
         this.validation = true
         this.validationMessage = true
         this.message = 'Success! redirecting in '
-        console.log(res)
         this.countDownTimer()
       }).catch(() => {
         this.validation = true

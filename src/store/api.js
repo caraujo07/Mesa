@@ -3,7 +3,6 @@ import axios from 'axios'
 export const loginRoutine = user => new Promise((resolve, reject) => {
   axios({ url: 'https://reqres.in/api/login', data: user, method: 'POST' })
     .then(resp => {
-      console.log(resp.data)
       const token = resp.data.token
       localStorage.setItem('user-token', token) // store the token in localstorage
       resolve(resp)

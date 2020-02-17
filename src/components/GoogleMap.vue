@@ -43,8 +43,6 @@ export default {
       this.gettingLocation = false
       this.location.lat = parseFloat(pos.coords.latitude)
       this.location.lng = parseFloat(pos.coords.longitude)
-      console.log(this.location.lat)
-      console.log(this.location.lng)
     }, err => {
       this.gettingLocation = false
       this.errorStr = err.message
@@ -57,7 +55,6 @@ export default {
         this.$gmapApiPromiseLazy().then(async res => {
           const recife = await new res.maps.LatLng(this.location.lat, this.location.lng)
 
-          console.log(this.location.lat)
           var service = new res.maps.places.PlacesService(map)
 
           function createMarker (place) {
@@ -71,7 +68,6 @@ export default {
             res.maps.event.addListener(marker, 'click', function () {
               infowindow.setContent(place.name)
               infowindow.open(map, this)
-              console.log(place)
             })
           }
           const callback = (results, status) => {

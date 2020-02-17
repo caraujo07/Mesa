@@ -135,7 +135,6 @@ export default {
           this.saved.push([item[0], item[1]])
         }
       })
-      console.log(this)
     },
     show: function () {
       this.$modal.show('edit-profile')
@@ -153,8 +152,6 @@ export default {
         username.innerHTML = name
         useremail.innerHTML = email
       }
-
-      console.log(name, username)
     }
   }
 }
