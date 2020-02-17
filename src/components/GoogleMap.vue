@@ -43,6 +43,8 @@ export default {
       this.gettingLocation = false
       this.location.lat = parseFloat(pos.coords.latitude)
       this.location.lng = parseFloat(pos.coords.longitude)
+      console.log(this.location.lat)
+      console.log(this.location.lng)
     }, err => {
       this.gettingLocation = false
       this.errorStr = err.message
@@ -52,9 +54,10 @@ export default {
     try {
       this.$refs.mapRef.$mapPromise.then((map) => {
         map.panTo({ lat: this.location.lat, lng: this.location.lng })
-        this.$gmapApiPromiseLazy().then(res => {
-          const placeLocal = new res.maps.LatLng(this.location.lat, this.location.lng)
+        this.$gmapApiPromiseLazy().then(async res => {
+          const recife = await new res.maps.LatLng(this.location.lat, this.location.lng)
 
+          console.log(this.location.lat)
           var service = new res.maps.places.PlacesService(map)
 
           function createMarker (place) {
@@ -82,7 +85,7 @@ export default {
             }
           }
           service.nearbySearch({
-            location: placeLocal,
+            location: recife,
             radius: '500'
           }, callback)
         })
