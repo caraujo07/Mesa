@@ -82,7 +82,7 @@ export default {
           }
           service.nearbySearch({
             location: placeLocation,
-            radius: '500'
+            radius: '1000'
           }, callback)
         })
       })
